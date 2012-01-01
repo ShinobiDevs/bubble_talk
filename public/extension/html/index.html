@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link href="../assets/css/jquery.mCustomScrollbar.css" rel="stylesheet" />
+    <link href="../assets/css/bubbleTalk.css" rel="stylesheet" />
+  </head>
+
+  <body style="background-color: yellow">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <div style="margin-left:900px;margin-top:50px;background-color:green;height:100px;width:100px"></div>
+    <div style="margin-top:10px;background-color:green;height:100px;width:100%"></div>
+    <div style="margin-left:100px;margin-top:50px;background-color:green;height:100px;width:100px"></div>
+    
+    <div class="bubbleTalk-toolbar">
+      <a class="btn btn-primary main-button">
+        <i class="icon-comment"></i>
+      </a>
+    </div>
+    <div id="social-sign-up" class="bubbleTalk-border">
+      <label>You are not signed in</label>
+      <label>Please <a href="http://localhost:3000">sign in</a></label>
+    </div>
+    <div id="bubbleTalk-actions" class="bubbleTalk-border">
+      <input type="button" id="add-bubble" class="btn btn-primary" value="Add Bubble" \>
+      <a id="save-bubbles" class="btn btn-primary disabled">Save</a>
+    </div>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+    <!-- custom scrollbars plugin -->
+    <script src="../assets/javascript/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="../assets/javascript/bubbleTalk.js"></script>
+    <script>
+      var extensionShown = false;
+      var current_user = null;
+      var save_in_process = false;
+
+      function load_share() {
+        $.ajax({
+          type: "GET",
+          url: "http://localhost:3000/v1/shares/" + current_user.id.$oid + ".json",
+          data: { url: document.URL },
+          success: function (data) {
+            Share.getInstance().load_share(data);
+          }
+        });
+      }
+
+      $.ajax({
+        type: "GET",
+        url: "http://localhost:3000/users/me.json",
+        success: function (data) {
+          current_user = new User();
+          current_user.initUser(data);
+          load_share();
+        }
+      });
+
+      Share.getInstance().addEventListener("changed", shareChanged);
+      $(".bubbleTalk-toolbar").animate({"right": "+=230px"}, "slow");
+      
+      $(".main-button").click(function() {
+        if (extensionShown) {
+          $(".bubbleTalk-toolbar").animate({"right": "-=230px"}, "slow");
+          if (current_user === null)
+            $("#social-sign-up").animate({"right": "-=230px"}, "slow");
+          else
+            $("#bubbleTalk-actions").animate({"right": "-=230px"}, "slow");
+
+          extensionShown = false;
+        } else {
+          $(".bubbleTalk-toolbar").animate({"right": "+=230px"}, "slow");
+          if (current_user === null)
+            $("#social-sign-up").animate({"right": "+=230px"}, "slow");
+          else
+            $("#bubbleTalk-actions").animate({"right": "+=230px"}, "slow");
+
+          extensionShown = true;
+        }
+      });
+
+      $("#add-bubble").click(function() {
+        var myDomOutline = BubbleTalkOutline();
+        myDomOutline.start();
+      });
+
+      function enableSaveButton(enable) {
+        if (!save_in_process)
+          if (enable)
+            $("#save-bubbles").removeClass("disabled");
+          else
+            if (!$("#save-bubbles").hasClass("disabled"))
+              $("#save-bubbles").addClass("disabled");
+      }
+
+      function shareChanged(data) {
+        if (data.isShareChanged)
+          enableSaveButton(true);
+        else
+          enableSaveButton(false);
+      }
+
+      function handleNewShare(shareJSON) {
+        $.ajax({
+          type: "POST",
+          url: "http://localhost:3000/v1/shares.json",
+          data: { share: shareJSON },
+          success: function (data) {
+            Share.getInstance().after_save(data);
+            save_in_process = false;
+            enableSaveButton(Share.getInstance().check_if_changed());
+          },
+          error: function (data) {
+            alert(data.message);
+            save_in_process = false;
+            enableSaveButton(Share.getInstance().check_if_changed());
+          }
+        });
+      }
+
+      function handleDeleteShare() {
+        var share_uuid = Share.getInstance().uuid;
+        $.ajax({
+          type: "DELETE",
+          url: "http://localhost:3000/v1/shares/" + share_uuid + ".json",
+          data: { uuid: share_uuid },
+          success: function (data) {
+            Share.getInstance().after_delete();
+            save_in_process = false;
+            enableSaveButton(Share.getInstance().check_if_changed());
+          },
+          error: function (data) {
+            alert(data.message);
+            save_in_process = false;
+            enableSaveButton(Share.getInstance().check_if_changed());
+          }
+        });
+      }
+
+      function handleUpdateShare(shareJSON) {
+        var share_uuid = Share.getInstance().uuid;
+        $.ajax({
+          type: "PATCH",
+          url: "http://localhost:3000/v1/shares/" + share_uuid + ".json",
+          data: { uuid: share_uuid, share: shareJSON },
+          success: function (data) {
+            Share.getInstance().after_save(data);
+            save_in_process = false;
+            enableSaveButton(Share.getInstance().check_if_changed());
+          },
+          error: function (data) {
+            alert(data.message);
+            save_in_process = false;
+            enableSaveButton(Share.getInstance().check_if_changed());
+          }
+        });
+      }
+
+      $("#save-bubbles").click(function() {
+        enableSaveButton(false);
+        save_in_process = true;
+        var shareJSON = Share.getInstance().to_json(current_user.id, document.URL);
+
+        if (shareJSON === null)
+          handleDeleteShare();
+        else if (Share.getInstance().isShareNew)
+          handleNewShare(shareJSON);
+        else
+          handleUpdateShare(shareJSON);
+      });
+
+      //function draw_test_bubbles() {
+        var posNewBubble = new Position();
+        posNewBubble.positionTop = 300;
+        posNewBubble.positionWidth = 165;
+        posNewBubble.positionHeight = 100;
+        posNewBubble.positionLeft = 500;
+        triangleName = "left";
+        Share.getInstance().addNewBubbleWithTriangle(posNewBubble, triangleName);
+        triangleName = "right";
+        Share.getInstance().addNewBubbleWithTriangle(posNewBubble, triangleName);
+        triangleName = "bottom";
+        Share.getInstance().addNewBubbleWithTriangle(posNewBubble, triangleName);
+        triangleName = "topj";
+        Share.getInstance().addNewBubbleWithTriangle(posNewBubble, triangleName);
+      //}
+
+    </script>
+  </body>
+</html>

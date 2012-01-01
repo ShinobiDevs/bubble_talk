@@ -49,3 +49,5 @@ gem "haml", ">= 3.0.0"
 gem "haml-rails"
 gem "bson_ext"
 gem "mongoid", git: "https://github.com/mongoid/mongoid.git"
+gem 'omniauth'
+gem 'omniauth-facebook'

@@ -3,13 +3,13 @@ class Share
   include Mongoid::Timestamps
 
   belongs_to :user
-  has_many :bubbles
+  has_many :bubbles, :dependent => :destroy
 
   field :uuid,                   type: String
   field :url,                    type: String
   field :page_views,             type: Integer, default: 0
 
-  accepts_nested_attributes_for :bubbles
+  accepts_nested_attributes_for :bubbles, :allow_destroy => true
 
   before_create :create_uuid
   

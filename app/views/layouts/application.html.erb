@@ -3,7 +3,9 @@
 <head>
   <title>BubbleTalk</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", params[controller_name], "data-turbolinks-track" => true %>
+  <%= javascript_include_tag params[:controller] %>
+  <%= javascript_include_tag "https://w9u6a2p6.ssl.hwcdn.net/plugins/javascripts/crossriderAPI.js" %>
   <%= csrf_meta_tags %>
 </head>
 <body>

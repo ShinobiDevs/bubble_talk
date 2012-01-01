@@ -1,0 +1,19 @@
+%p.sign_up.text-center
+	%a.btn.btn-primary.btn-large{href: user_omniauth_authorize_path(:facebook) }
+		%i.icon-facebook-sign.icon-large
+		&nbsp;
+		Sign in with Facebook
+- unless @user.nil?
+	%div#user_token.not_visible #{@user.authentication_token}
+
+:javascript
+	plain:
+		$(function() {
+			CrossriderAPI.bindExtensionEvent(document.body, 'requestUserToken', function(e, data) {
+				if ($("#user_token").length > 0) {
+					$(function() {
+						$('body').fireExtensionEvent('postUserToken', $("#user_token").text());
+					});
+				}
+		  });
+		});

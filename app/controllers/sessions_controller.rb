@@ -1,5 +1,5 @@
 class SessionsController < Devise::SessionsController
-  before_filter :authenticate_user!, :except => [:create, :destroy]
+  before_filter :authenticate_user!, :except => [:create, :destroy, :me]
   skip_before_filter :verify_authenticity_token, :only => [:create]
   respond_to :json
 
@@ -12,11 +12,11 @@ class SessionsController < Devise::SessionsController
       if resource.blank?
         email = facebook_user.email || "guest_#{facebook_user.identifier}@bubbletalk.com"
         resource = User.create!(access_token: facebook_user.access_token.to_s,
-                                  facebook_uid: facebook_user.identifier,
-                                  name: facebook_user.name,
-                                  profile_picture: facebook_user.picture,
-                                  password: Devise.friendly_token[0,20],
-                                  email: email)
+                                facebook_uid: facebook_user.identifier,
+                                name: facebook_user.name,
+                                profile_picture: facebook_user.picture,
+                                password: Devise.friendly_token[0,20],
+                                email: email)
       end
     end
 
@@ -32,6 +32,21 @@ class SessionsController < Devise::SessionsController
     resource.authentication_token = nil
     resource.save
     render nothing: true, status: :ok
+  end
+
+  # GET /users/me
+  def me
+    user_token = params[:user_token]
+    if user_token.present?
+      @user = User.where(authentication_token: user_token).first
+      if @user.nil?
+        render json: { error: 'not logged in' }, status: 401
+      else
+        render :json => @user
+      end
+    else
+      render json: { error: 'not logged in' }, status: 401
+    end
   end
 
   protected

@@ -1,0 +1,42 @@
+$(document).ready(function(e){
+	var appId = '30006'; // Replace this with the id of your extension
+
+	$(function() {
+		// Call the isAppInstalled method
+
+    CrossriderAPI.isAppInstalled(appId, function(isInstalled) {
+      
+      // Callback function                
+      // isInstalled: true if the extension is installed; otherwise false
+      if (isInstalled) {
+      	/*$.ajax({
+					type: "GET",
+					url: "http://localhost:3000/users/me.json",
+					success: function (data) {
+						$("<p>redirect to page " + URL + "</p>").appendTo('body');
+						alert(data._id.$oid);
+					},
+					error: function(data) {
+						$("<p>Please login</p>").appendTo('body');
+						alert("boo");
+					}
+				});*/
+    		$("<p>redirect to page " + URL + "</p>").appendTo('body');
+    		$(function() {
+					$('body').fireExtensionEvent('postClickedData', [URL, UUID]);
+				});
+
+        // Your code to redirect if extension is installed
+      } else {
+      	$('<p>please install the extension</p>').appendTo('body')
+      	// Your code to redirect if extension is NOT installed
+      }
+    });
+
+    $('body').bindExtensionEvent('recieveClickedData', function(e, data) {
+			if (data) {
+				window.location=URL;
+			}
+		});
+	});
+});

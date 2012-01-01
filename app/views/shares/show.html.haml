@@ -1,0 +1,7 @@
+%p #{@user.name} shared using BubbleTalk http://www.bubbletalk.com/shares/#{@share.uuid}
+%p checking if extension exist
+
+%script{:type => "text/javascript"}
+	UUID = '#{@share.uuid}';
+	URL = '#{@share.url}';
+	

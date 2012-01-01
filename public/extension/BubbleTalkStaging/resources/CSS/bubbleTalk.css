@@ -1,0 +1,256 @@
+.bubbleTalk-oval {
+  position: absolute;
+  width: 270px;
+  padding: 15px 0 15px 3px;
+  color: #fff; 
+  background: #075698;
+  z-index: 100000000;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px; 
+  border-radius: 20px;
+}
+
+.bubbleTalk-oval textarea { 
+  background: transparent;
+  color: white;
+  border-color: Transparent;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+}
+
+.bubbleTalk-oval label { word-wrap: break-word; margin:0 0 20px 0; max-height: 100%; }
+.bubbleTalk-oval label,textarea { font-size: 1.25em }
+
+.bubbleTalk-oval-top:before {
+  content: "";
+  position: absolute;
+  z-index: 100000000;
+  bottom: -32px;
+  left: 11%;
+  height: 30px;
+  border-left: 60px solid #075698;
+  background: #075698;
+  -webkit-border-bottom-left-radius: 80px 50px;
+  -moz-border-radius-bottomleft: 80px 50px;
+  border-bottom-left-radius: 80px 50px;
+  -webkit-transform: translate(0, -2px);
+  -moz-transform: translate(0, -2px);
+  -ms-transform: translate(0, -2px);
+  -o-transform: translate(0, -2px);
+  transform: translate(0, -2px);
+}
+
+.bubbleTalk-oval-top:after {
+  content: "";
+  position: absolute;
+  z-index: 100000000;
+  bottom: -28px;
+  left: -6px;
+  width: 60px;
+  height: 30px;
+  background: #fff;
+  -webkit-border-bottom-left-radius: 40px 50px;
+  -moz-border-radius-bottomleft: 40px 50px; 
+  border-bottom-left-radius: 40px 50px; 
+  -webkit-transform: translate(40px, 2px);
+  -moz-transform: translate(40px, 2px);
+  -ms-transform: translate(40px, 2px);
+  -o-transform: translate(40px, 2px);
+  transform: translate(40px, 2px);
+}
+
+.bubbleTalk-oval-left:before {
+  content: "";
+  position: absolute;
+  z-index: 100000000;
+  right: -30px;
+  top: 20%;
+  width: 30px;
+  border-top: 60px solid #075698;
+  background: #075698;
+  -webkit-border-top-right-radius: 50px 80px;
+  border-top-right-radius: 50px 80px;
+  -webkit-transform: translate(0, -2px);
+  -moz-transform: translate(0, -2px);
+  -ms-transform: translate(0, -2px);
+  -o-transform: translate(0, -2px);
+  transform: translate(0, -2px);
+}
+
+.bubbleTalk-oval-left:after {
+  content: "";
+  position: absolute;
+  z-index: 100000000;
+  right: -71px;
+  top: 34%;
+  height: 60px;
+  width: 31px;
+  background: #fff;
+  -webkit-border-top-right-radius: 50px 40px;
+  border-top-right-radius: 50px 40px;
+  -webkit-transform: translate(-40px, -2px);
+  -moz-transform: translate(-40px, -2px);
+  -ms-transform: translate(-40px, -2px);
+  -o-transform: translate(-40px, -2px);
+  transform: translate(-40px, -2px);
+}
+
+.bubbleTalk-oval-right:before {
+  content: "";
+  position: absolute;
+  z-index: 100000000;
+  left: -30px;
+  top: 20%;
+  width: 30px;
+  border-bottom: 60px solid #075698;
+  background: #075698;
+  -webkit-border-top-left-radius: 50px 80px;
+  border-top-left-radius: 50px 80px;
+  -webkit-transform: translate(0, -2px);
+  -moz-transform: translate(0, -2px);
+  -ms-transform: translate(0, -2px);
+  -o-transform: translate(0, -2px);
+  transform: translate(0, -2px);
+}
+
+.bubbleTalk-oval-right:after {
+  content: "";
+  position: absolute;
+  z-index: 100000000;
+  left: 10px;
+  top: 34%;
+  height: 60px;
+  width: 31px;
+  background: #fff;
+  -webkit-border-top-left-radius: 50px 40px;
+  border-top-left-radius: 50px 40px;
+  -webkit-transform: translate(-40px, -2px);
+  -moz-transform: translate(-40px, -2px);
+  -ms-transform: translate(-40px, -2px);
+  -o-transform: translate(-40px, -2px);
+  transform: translate(-40px, -2px);
+}
+
+.bubbleTalk-oval-bottom:before {
+  content: "";
+  position: absolute;
+  z-index: 100000000;
+  top: -28px;
+  left: 11%;
+  height: 30px;
+  border-right: 60px solid #075698;
+  background: #075698;
+  -webkit-border-top-left-radius: 80px 50px;
+  border-top-left-radius: 80px 50px;
+  -webkit-transform: translate(0, -2px);
+  -moz-transform: translate(0, -2px);
+  -ms-transform: translate(0, -2px);
+  -o-transform: translate(0, -2px);
+  transform: translate(0, -2px);
+}
+
+.bubbleTalk-oval-bottom:after {
+  content: "";
+  position: absolute;
+  z-index: 100000000;
+  top: -32px;
+  left: -6px;
+  width: 60px;
+  height: 30px;
+  background: #fff;
+  -webkit-border-top-left-radius:40px 50px;
+  border-top-left-radius:40px 50px;
+  -webkit-transform: translate(40px, 2px);
+  -moz-transform: translate(40px, 2px);
+  -ms-transform: translate(40px, 2px);
+  -o-transform: translate(40px, 2px);
+  transform: translate(40px, 2px);
+}
+
+.bubbleTalk-unselectable {
+  z-index: 100000000;
+  border:solid 1px #000; 
+  border-style:dashed;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+
+  /*
+    Introduced in IE 10.
+    See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+  */
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.BubbleTalkOutline {
+  background: #09c;
+  position: absolute;
+  z-index: 100000001;
+}
+
+.bubbleTalk-toolbar {
+  position: fixed;
+  display: inline;
+  right: 10px;
+  bottom: 2%;
+  background: #fff;
+  -webkit-box-shadow:0 0 10px rgba(0,0,0,1);
+  box-shadow:0 0 10px rgba(0,0,0,1);
+  text-align: right;
+  z-index: 1000000;
+}
+
+.bubbleTalk-toolbar a {
+  margin: 3px;
+  color: white;
+}
+
+.bubbleTalk-border {
+  position: fixed;
+  display: inline;
+  text-align: center;
+  right: -220px;
+  bottom: 1%;
+  margin-top: 5px;
+  height: 80px;
+  width: 200px;
+  background-color: #fff;
+  -webkit-box-shadow:0 0 10px rgba(0,0,0,1);
+  box-shadow:0 0 10px rgba(0,0,0,1);
+  padding: 5px;
+  z-index: 1000000;
+}
+
+.bubbleTalk-border a,input {
+  margin: 5px;
+}
+
+i.icon-remove-circle:hover {
+  cursor: pointer;
+}
+
+.bubbleTalk1-toolbar {
+  position: fixed;
+  z-index: 100000000;
+  left: 0px;
+  top: -100px;
+  width: 100%;
+  height: 100px;
+  background: #fff;
+  -webkit-box-shadow:0 0 10px rgba(0,0,0,1);
+  box-shadow:0 0 10px rgba(0,0,0,1);
+}
+
+.bubbleTalk-small-toolbar {
+  position: fixed;
+  z-index: 100000000;
+  left: 0px;
+  top: -30px;
+  width: 100%;
+  height: 30px;
+  background: #fff;
+  -webkit-box-shadow:0 0 5px rgba(0,0,0,1);
+  box-shadow:0 0 5px rgba(0,0,0,1);
+}
