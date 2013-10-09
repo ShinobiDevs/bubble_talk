@@ -34,7 +34,7 @@ class V1::SharesController < ApplicationController
   # GET /v1/shares/1.json
   # GET /v1/shares/1
   def show
-    @share = Share.find(params[:id])
+    @share = Share.find(params[:id]).includes(:bubbles)
     respond_with(@share)
   end
 end
