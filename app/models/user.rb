@@ -6,6 +6,8 @@ class User
   field :email,              :type => String, :default => ""
   field :facebook_uid,              :type => String, :default => ""
   field :access_token,              :type => String, :default => ""
+  field :name,              :type => String, :default => ""
+  field :profile_picture,              :type => String, :default => ""
   field :encrypted_password, :type => String, :default => ""
   field :reset_password_token,   :type => String
   field :reset_password_sent_at, :type => Time
@@ -21,4 +23,7 @@ class User
   has_many :shares
   has_many :bubbles
 
+  def as_json(options)
+    super(options.merge(only: [:email, :name, :profile_picture, :authentication_token]))
+  end
 end

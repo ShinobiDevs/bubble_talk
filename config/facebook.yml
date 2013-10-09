@@ -1,0 +1,6 @@
+development:
+  client_id: "666392980042990"
+  client_secret: "196cd67da8d69c17ffff6c8f848c6570"
+production:
+  client_id: "515511105188973"
+  client_secret: "66f63eb07a3b6f54a5638a251051a07c"
