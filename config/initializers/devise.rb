@@ -236,7 +236,7 @@ Devise.setup do |config|
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE if Rails.env.development? 
 
   if Rails.env.development?
-    config.omniauth :facebook, '666392980042990', '196cd67da8d69c17ffff6c8f848c6570'
+    config.omniauth :facebook, '666392980042990', '196cd67da8d69c17ffff6c8f848c6570', :strategy_class => OmniAuth::Strategies::Facebook
   end
 
   # ==> Warden configuration
