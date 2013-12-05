@@ -51,3 +51,4 @@ gem "bson_ext"
 gem "mongoid", git: "https://github.com/mongoid/mongoid.git"
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'rails_12factor', group: :production
