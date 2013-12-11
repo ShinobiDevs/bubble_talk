@@ -5,12 +5,9 @@
 	UUID = '#{@share.uuid}';
 	URL = '#{@share.url}';
 	appId = '30005'; // Replace this with the id of your extension
-
 	$(function() {
 	// Call the isAppInstalled method
-
 	CrossriderAPI.isAppInstalled(appId, function(isInstalled) {
-  
 	// Callback function
   	// isInstalled: true if the extension is installed; otherwise false
   	if (isInstalled) {
@@ -22,7 +19,6 @@
 	$('<p>please install the extension</p>').appendTo('body');
   	}
     });
-
 	$('body').bindExtensionEvent('recieveClickedData', function(e, data) {
 	if (data) {
 	window.location=URL;
