@@ -109,28 +109,6 @@ var Bubble = function(options) {
                     .click(function() { removeBubble(); });
     };
 
-    pub.createSharedBubble = function(bubble) {
-        pub.bubbleIDNum = bubble.bubble_id_num;
-        self.opts.direction = bubble.direction;
-        self.bubble_id = bubble._id;
-        self.uuid = bubble.uuid;
-        self.body = bubble.body;
-
-        self.bubbleTalkElem = document.createElement("div");
-        $(self.bubbleTalkElem).attr("id", "sharedBubbleTalk" + pub.bubbleIDNum)
-                              .addClass("bubbleTalk-oval")
-                              .css({"left": bubble.left + "px", "top": bubble.top + "px", "width": bubble.width - 3 + "px", "height": bubble.height - 30 + "px"})
-                              .appendTo("body");
-        if (self.opts.direction !== "")
-            $(self.bubbleTalkElem).addClass("bubbleTalk-oval-" + self.opts.direction);
-
-        var labelElem = document.createElement("label");
-        $(labelElem).attr("id", "sharedBubbleTalk_label" + pub.bubbleIDNum)
-                    .text(self.body)
-                    .appendTo(self.bubbleTalkElem)
-                    .mCustomScrollbar();
-    }
-
     pub.addEventListener = function (key, func) {
         if (!self.events.hasOwnProperty(key)) {
             self.events[key] = [];
@@ -448,15 +426,6 @@ var Share = (function() {
                     self.last_bubble_id = bubbleID;
 
                 self.bubbleCounter++;
-            }
-        };
-
-        pub.load_clicked_share = function(data) {
-            for (var i = 0; i < data.bubbles.length; i++) {
-                var bubbleID = data.bubbles[i].bubble_id_num;
-
-                var newBubble = new Bubble();
-                newBubble.createSharedBubble(data.bubbles[i]);
             }
         };
 
